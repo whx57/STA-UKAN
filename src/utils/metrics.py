@@ -4,7 +4,13 @@ Evaluation metrics for temperature forecasting.
 
 import torch
 import numpy as np
-from sklearn.metrics import mean_squared_error, mean_absolute_error
+
+
+def _to_numpy(data):
+    """Convert tensor to numpy if needed."""
+    if isinstance(data, torch.Tensor):
+        return data.cpu().numpy()
+    return data
 
 
 def rmse(predictions, targets):
@@ -17,12 +23,11 @@ def rmse(predictions, targets):
     Returns:
         RMSE score
     """
-    if isinstance(predictions, torch.Tensor):
-        predictions = predictions.cpu().numpy()
-    if isinstance(targets, torch.Tensor):
-        targets = targets.cpu().numpy()
+    predictions = _to_numpy(predictions)
+    targets = _to_numpy(targets)
     
-    return np.sqrt(mean_squared_error(targets, predictions))
+    mse = np.mean((targets - predictions) ** 2)
+    return np.sqrt(mse)
 
 
 def mae(predictions, targets):
@@ -35,12 +40,10 @@ def mae(predictions, targets):
     Returns:
         MAE score
     """
-    if isinstance(predictions, torch.Tensor):
-        predictions = predictions.cpu().numpy()
-    if isinstance(targets, torch.Tensor):
-        targets = targets.cpu().numpy()
+    predictions = _to_numpy(predictions)
+    targets = _to_numpy(targets)
     
-    return mean_absolute_error(targets, predictions)
+    return np.mean(np.abs(targets - predictions))
 
 
 def mape(predictions, targets, epsilon=1e-8):
@@ -54,10 +57,8 @@ def mape(predictions, targets, epsilon=1e-8):
     Returns:
         MAPE score
     """
-    if isinstance(predictions, torch.Tensor):
-        predictions = predictions.cpu().numpy()
-    if isinstance(targets, torch.Tensor):
-        targets = targets.cpu().numpy()
+    predictions = _to_numpy(predictions)
+    targets = _to_numpy(targets)
     
     return np.mean(np.abs((targets - predictions) / (np.abs(targets) + epsilon))) * 100
 
@@ -72,10 +73,8 @@ def r2_score(predictions, targets):
     Returns:
         R2 score
     """
-    if isinstance(predictions, torch.Tensor):
-        predictions = predictions.cpu().numpy()
-    if isinstance(targets, torch.Tensor):
-        targets = targets.cpu().numpy()
+    predictions = _to_numpy(predictions)
+    targets = _to_numpy(targets)
     
     ss_res = np.sum((targets - predictions) ** 2)
     ss_tot = np.sum((targets - np.mean(targets)) ** 2)
@@ -93,10 +92,8 @@ def bias(predictions, targets):
     Returns:
         Bias score
     """
-    if isinstance(predictions, torch.Tensor):
-        predictions = predictions.cpu().numpy()
-    if isinstance(targets, torch.Tensor):
-        targets = targets.cpu().numpy()
+    predictions = _to_numpy(predictions)
+    targets = _to_numpy(targets)
     
     return np.mean(predictions - targets)
 
@@ -112,8 +109,12 @@ def skill_score(predictions, targets, baseline_predictions):
     Returns:
         Skill score
     """
-    model_mse = mean_squared_error(targets, predictions)
-    baseline_mse = mean_squared_error(targets, baseline_predictions)
+    predictions = _to_numpy(predictions)
+    targets = _to_numpy(targets)
+    baseline_predictions = _to_numpy(baseline_predictions)
+    
+    model_mse = np.mean((targets - predictions) ** 2)
+    baseline_mse = np.mean((targets - baseline_predictions) ** 2)
     
     return 1 - (model_mse / (baseline_mse + 1e-8))
 

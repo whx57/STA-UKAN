@@ -5,7 +5,6 @@ Data loader for atmospheric data and terrain features.
 import torch
 from torch.utils.data import Dataset, DataLoader
 import numpy as np
-import pandas as pd
 
 
 class AtmosphericDataset(Dataset):
