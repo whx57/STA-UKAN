@@ -157,7 +157,12 @@ class MultisourceFusion(nn.Module):
                     for other_name in self.factor_names
                     if other_name != name
                 ]
-                aggregated = torch.stack(other_factors, dim=0).mean(dim=0)
+                
+                # If only one factor, use self-attention
+                if len(other_factors) == 0:
+                    aggregated = encoded_factors[name]
+                else:
+                    aggregated = torch.stack(other_factors, dim=0).mean(dim=0)
                 
                 # Cross-attention
                 attn_out = cross_attn_dict[name](encoded_factors[name], aggregated)
