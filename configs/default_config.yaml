@@ -1,0 +1,40 @@
+# Default configuration for STA-UKAN
+
+# Model configuration
+model:
+  factor_dims:
+    temperature: 10
+    pressure: 8
+    humidity: 6
+    wind: 8
+  terrain_dim: 5
+  embed_dim: 256
+  num_heads: 8
+  num_fusion_layers: 2
+  num_token_kan_layers: 4
+  kan_hidden_dims: [512, 256]
+  forecast_horizon: 14
+  dropout: 0.1
+
+# Data configuration
+data:
+  train_samples: 800
+  val_samples: 200
+  test_samples: 200
+  seq_len: 30
+  num_workers: 4
+
+# Training configuration
+training:
+  num_epochs: 100
+  batch_size: 32
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  min_lr: 0.000001
+  log_interval: 10
+
+# Paths
+paths:
+  data_dir: 'data'
+  checkpoint_dir: 'checkpoints'
+  output_dir: 'outputs'
