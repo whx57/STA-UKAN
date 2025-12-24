@@ -21,7 +21,7 @@
 - Architecture: <briefly describe your encoder-decoder / attention / KAN module>.
 
 > Put a framework figure here:
-![framework](assets/framework.png)
+![framework](assets/Figure1.png)
 
 ## 📦 Installation
 
