@@ -22,33 +22,33 @@ STA-UKAN is a deep learning framework for subseasonal temperature forecast refin
 
 ## Experimental Environment
 
-All experiments were conducted and validated on **two independent hardware platforms** to ensure robustness and reproducibility.
+All experiments were conducted and validated on **two independent GPU hardware platforms** to ensure robustness and reproducibility.
 
 ### Environment A: NVIDIA GPU Platform
 | Component | Specification |
 |----------|---------------|
-| Server | mxc500 |
 | GPU | NVIDIA RTX 3090 (24 GB) |
 | Driver | NVIDIA Driver 535.183.01 |
 | CUDA | 12.2 |
 | Python | 3.10.14 |
 | Framework | PyTorch |
 
-### Environment B: MX Accelerator Platform (MCC / 沐曦)
+### Environment B: MX GPU Platform 
 | Component | Specification |
 |----------|---------------|
-| Server | mxc500 |
-| Accelerator Stack | MX-SMI 2.2.8 |
+| GPU | MXC500 |
+| Driver Stack | MX-SMI 2.2.8 |
 | Kernel Mode Driver | 3.0.11 |
 | MACA Version | 3.1.0.14 |
 | BIOS Version | 1.27.5.0 |
 | Python | 3.10.19 |
 | Framework | PyTorch |
 
-> The proposed model and all baseline methods were **trained and evaluated on both platforms**.  
-> Although minor numerical differences may arise due to backend implementations, the **relative performance rankings and conclusions remain consistent** across environments.
+> The proposed model and all baseline methods were **trained and evaluated on both GPU hardware platforms**.  
+> Although minor numerical differences may arise due to driver stacks and backend implementations, the **relative performance rankings and conclusions remain consistent** across platforms.
 
 ---
+
 
 
 ## Data and Pretrained Checkpoints
