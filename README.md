@@ -246,3 +246,7 @@ If you find this repository useful, please cite:
 
 ---
 
+
+## License
+
+This project is released under the MIT License.
