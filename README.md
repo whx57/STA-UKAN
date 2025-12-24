@@ -6,6 +6,11 @@
 
 STA-UKAN is a deep learning framework for subseasonal temperature forecast refinement, combining multi-source atmospheric factor fusion with terrain-aware Kolmogorov-Arnold Network (KAN) architecture.
 
+<p align="center">
+  <img src="assets/Figure1.png" width="85%">
+</p>
+
+
 ## Features
 
 - Multi-source atmospheric data fusion (ECMWF, CMA-GFS)
