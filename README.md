@@ -161,7 +161,7 @@ All machine learning models are trained using identical input features and targe
 
 #### Baseline Deep Learning Models
 - **UNet**: Standard encoder–decoder UNet architecture  
-- **CUNet**: Conditional UNet variant  
+- **CUNet**: Sub-pixel convolution UNet
 - **EDSR**: Enhanced Deep Residual Network  
 - **SwinIR**: Swin Transformer–based Image Restoration Network  
 - **RCAN**: Residual Channel Attention Network  
@@ -237,16 +237,12 @@ The KAN-related components are inspired by:
 If you find this repository useful, please cite:
 
 ```bibtex
-@article{whx2025staukan,
+@article{better2025staukan,
   title   = {STA-UKAN: Subseasonal Temperature Forecast Refinement via Multi-source Atmospheric Factor Fusion and Terrain-Aware KAN Network},
-  author  = {XXX},
-  journal = {XXX},
+  author  = {better},
   year    = {2025}
 }
 ```
 
 ---
 
-## License
-
-This project is released under the [MIT License](LICENSE).
