@@ -1,0 +1,683 @@
+experiment:
+  name: "search_5week"
+  week: "5week"
+  seed: 42
+  device: "cuda:0"
+  save_epoch: 5
+  loss: "Charbonnier"
+  wandb_project: "search_5week"  # 替换为您的 WandB 项目名称
+  # config_name: "default_config"  # 用于命名模型和保存路径
+
+data:
+  x_path: "data/output/x3_5week.npy"
+  y_path: "data/output/y3_5week.npy"
+  mask_path: "data/MASK.npy"
+  map_path: "data/final_map1.nc"
+
+
+
+
+models:
+  - name: "UNet"
+    class_name: "UNet"
+    active: true
+    instructions: ""
+    group: "unet"
+    tags: ["unet","forward","bilinear"]
+    params:
+      out_channels: 1
+      in_channels: 256
+      initial_feature_maps: 128
+
+  - name: "UNet_64"
+    class_name: "UNet_64"
+    active: true
+    instructions: ""
+    group: "unet"
+    tags: ["unet","forward","bilinear"]
+    params:
+      out_channels: 1
+      in_channels: 256
+      initial_feature_maps: 64
+
+  - name: "UNet1"
+    class_name: "UNet1"
+    active: true
+    instructions: "model1"
+    group: "unet"
+    tags: ["unet","backward","bilinear"]
+    params:
+      out_channels: 1
+      in_channels: 256
+      initial_feature_maps: 256
+  - name: "CUKan0"
+    class_name: "CUKan0"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2_kan"
+    class_name: "CUKan2_kan"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2_1_muti1"
+    class_name: "CUKan2_1_muti1"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2_kan1"
+    class_name: "CUKan2_kan1"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2_1_real"
+    class_name: "CUKan2_1_real"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2_1_real_layer4"
+    class_name: "CUKan2_1_real_layer4"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2_1_real_layer4_64"
+    class_name: "CUKan2_1_real_layer4_64"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [64, 128, 256] 
+  - name: "CUKan2_1_real_64"
+    class_name: "CUKan2_1_real_64"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [64, 128, 256] 
+  - name: "UKan_64"
+    class_name: "UKan_64"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [64, 128, 256] 
+  - name: "CUKAN2_1_real_kan"
+    class_name: "CUKAN2_1_real_kan"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKAN2_1_real_ec_t"
+    class_name: "CUKAN2_1_real_ec_t"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 11
+      embed_dims: [128, 256, 512] 
+  - name: "CUKAN2_1_real_ec_cma_t"
+    class_name: "CUKAN2_1_real_ec_cma_t"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 15
+      embed_dims: [128, 256, 512] 
+  - name: "CUKAN2_1_real_cma_t"
+    class_name: "CUKAN2_1_real_cma_t"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 4
+      embed_dims: [128, 256, 512] 
+  - name: "CUKAN2_1_real_ec"
+    class_name: "CUKAN2_1_real_ec"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 188
+      embed_dims: [128, 256, 512] 
+  - name: "CUKAN2_1_real_cma"
+    class_name: "CUKAN2_1_real_cma"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 68
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2_kan2"
+    class_name: "CUKan2_kan2"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2_kan3"
+    class_name: "CUKan2_kan3"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+
+  - name: "CUKan2_kan4"
+    class_name: "CUKan2_kan4"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  # - name: "UNet1DownscaleTranspose"
+  #   class_name: "UNet3"
+  #   active: false
+  #   instructions: ""
+  #   group: "unet"
+  #   tags: ["unet","backward","ConvTranspose2d"]
+  #   params:
+  #     out_channels: 1
+  #     in_channels: 256
+  #     initial_feature_maps: 256
+      
+  - name: "C_UNet"
+    class_name: "C_UNet"
+    active: false
+    instructions: ""
+    group: "unet"
+    tags: ["unet","backward","pixelshuffle"]
+    params:
+      out_channels: 1
+      in_channels: 256
+      initial_feature_maps: 256
+  - name: "C_UNet_4"
+    class_name: "C_UNet_4"
+    active: true
+    instructions: ""
+    group: "unet"
+    tags: ["unet","backward","pixelshuffle"]
+    params:
+      out_channels: 1
+      in_channels: 256
+      initial_feature_maps: 64
+
+  - name: "UKan"
+    class_name: "UKan"
+    active: false
+    instructions: "model2"
+    group: "ukan"
+    tags: ["ukan","forward","nearest"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512]
+
+  # - name: "UKanDownscale2"
+  #   class_name: "UKan2"
+  #   active: false
+  #   instructions: "卷积改进"
+  #   group: "ukan"
+  #   tags: ["ukan","forward","nearest","change"]
+  #   params:
+  #     num_classes: 1
+  #     input_channels: 256
+  #     embed_dims: [128, 256, 512]
+
+  # - name: "UKanDownscale3"
+  #   class_name: "UKan3"
+  #   active: false
+  #   instructions: "卷积改进"
+  #   group: "ukan"
+  #   tags: ["ukan","forward","pixelshuffle","change"]
+  #   params:
+  #     num_classes: 1
+  #     input_channels: 256
+  #     embed_dims: [128, 256, 512]
+
+  # - name: "UKanDownscale4"
+  #   class_name: "UKan4"
+  #   active: false
+  #   instructions: "卷积改进"
+  #   group: "ukan"
+  #   tags: ["ukan","backward","pixelshuffle","change"]
+  #   params:
+  #     num_classes: 1
+  #     input_channels: 256
+  #     embed_dims: [128, 256, 512]
+
+  # - name: "UKanDownscale5"
+  #   class_name: "UKan5"
+  #   active: false
+  #   instructions: "卷积改进"
+  #   group: "ukan"
+  #   tags: ["ukan","backward","pixelshuffle","change"]
+  #   params:
+  #     num_classes: 1
+  #     input_channels: 256
+  #     embed_dims: [128, 256, 512]
+
+
+  # - name: "UKanDownscale1"
+  #   class_name: "Ukan1"
+  #   active: false
+  #   instructions: ""
+  #   group: "ukan"
+  #   tags: ["ukan","backward","pixelshuffle"]
+  #   params:
+  #     num_classes: 1
+  #     input_channels: 256
+  #     embed_dims: [128, 256, 512]
+
+  # - name: "CUKan"
+  #   class_name: "CUKan"
+  #   active: false
+  #   instructions: "model3"
+  #   group: "ukan"
+  #   tags: ["ukan","forward","pixelshuffle"]
+  #   params:
+  #     num_classes: 1
+  #     input_channels: 256
+  #     embed_dims: [128, 256, 512]
+
+  # - name: "CUKan_hou"
+  #   class_name: "CUKan_hou"
+  #   active: false
+  #   instructions: ""
+  #   group: "ukan"
+  #   tags: ["ukan","backward","pixelshuffle"]
+  #   params:
+  #     num_classes: 1
+  #     input_channels: 256
+  #     embed_dims: [128, 256, 512] 
+  - name: "CUKan1"
+    class_name: "CUKan1"
+    active: false
+    instructions: "addmap"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKAN1_real"
+    class_name: "CUKAN1_real"
+    active: false
+    instructions: "addmap"
+    group: "ukan"
+    tags: ["ukan","forward"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKAN1_CAF"
+    class_name: "CUKAN1_CAF"
+    active: false
+    instructions: "addmap"
+    group: "ukan"
+    tags: ["ukan","forward"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKAN0_CAF"
+    class_name: "CUKAN0_CAF"
+    active: false
+    instructions: "addmap"
+    group: "ukan"
+    tags: ["ukan","forward"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKAN2_3_real"
+    class_name: "CUKAN2_3_real"
+    active: false
+    instructions: "addmap"
+    group: "ukan"
+    tags: ["ukan","forward"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2"
+    class_name: "CUKan2"
+    active: false
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+
+  - name: "CUKan2_5"
+    class_name: "CUKan2_5"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2_5_1"
+    class_name: "CUKan2_5_1"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2_1"
+    class_name: "CUKan2_1"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2_1_1"
+    class_name: "CUKan2_1_1"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2_1_2"
+    class_name: "CUKan2_1_2"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2_1_3"
+    class_name: "CUKan2_1_3"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2_1_4"
+    class_name: "CUKan2_1_4"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2_1_5"
+    class_name: "CUKan2_1_5"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2_1_6"
+    class_name: "CUKan2_1_6"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+
+  - name: "CUKan2_2"
+    class_name: "CUKan2_2"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2_3"
+    class_name: "CUKan2_3"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2_4"
+    class_name: "CUKan2_4"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  - name: "CUKan2_5"
+    class_name: "CUKan2_5"
+    active: true
+    instructions: "addmap+ResidualConvLayer+SEBlock"
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512] 
+  # - name: "CUKan3"
+  #   class_name: "CUKan3"
+  #   active: false
+  #   instructions: "addmap+ ASPP"
+  #   group: "ukan"
+  #   tags: ["ukan","forward","pixelshuffle","change"]
+  #   params:
+  #     num_classes: 1
+  #     input_channels: 256
+  #     embed_dims: [128, 256, 512] 
+
+  # - name: "CUKan4"
+  #   class_name: "CUKan4"
+  #   active: false
+  #   instructions: "addmap+ initial_conv"
+  #   group: "ukan"
+  #   tags: ["ukan","forward","pixelshuffle","change"]
+  #   params:
+  #     num_classes: 1
+  #     input_channels: 256
+  #     embed_dims: [128, 256, 512] 
+
+  - name: "SwinIR"  
+    class_name: "SwinIR"  
+    active: true  
+    instructions: "model4"  
+    group: "SwinIR"
+    tags: ["SwinIR","backward","pixelshuffle"]
+    params: 
+      embed_dims: 372
+      depths: [6, 6, 6]        # 每个Swin Transformer块的层数  
+      num_heads: [6, 6, 6]     # 每个Swin Transformer块中的注意力头数  
+      mlp_ratio: 2             # MLP（多层感知器）的扩展比例  
+      window_size: 4           # Swin Transformer的窗口大小（这里假设为8，具体值需根据模型要求设置）  
+      img_size: [ 32, 48] # 输入图像的高度和宽度（需要替换为具体的数值）  
+      upscale: 6               # 图像放大的倍数  
+      upsampler: 'pixelshuffle' # 上采样方法  
+      img_range: 1.0           # 图像数据的范围（通常用于归一化）
+
+
+
+  - name: "EDSR"
+    class_name: "EDSR"
+    active: false
+    instructions: "model5"
+    group: "EDSR"
+    tags: ["EDSR","backward","pixelshuffle"]
+    params: {}
+
+
+
+  - name: "XUnet"
+    class_name: "XUnet"
+    active: false
+    instructions: "model6"
+    group: "XUnet"
+    tags: ["XUnet","backward","pixelshuffle"]
+    params:
+      dim: 64                   # Base feature dimension
+      init_dim: 64              # Initial convolution output dimension
+      out_dim: 1                # Number of output channels
+      frame_kernel_size: 1      # Frame kernel size (1 for images)
+      nested_unet_dim: 32         # Nested UNet dimension (only if nested_unet_depths > 0)
+      input_channels: 256         # Number of input channels
+      use_convnext: false         # Whether to use ConvNeXt blocks
+      consolidate_upsample_fmaps: true   # Whether to consolidate feature maps during upsampling
+      weight_standardize: false    # Whether to use weight standardization
+      
+
+
+  - name: "CUKAN_add_pattern_channel"
+    class_name: "CUKAN_add_pattern_channel"
+    active: false
+    instructions: ""
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512]
+
+
+  - name: "CUKAN_add_pattern_channel_view"
+    class_name: "CUKAN_add_pattern_channel_view"
+    active: false
+    instructions: ""
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512]
+
+
+  - name: "CUKAN_add_pattern_channel_view_height"
+    class_name: "CUKAN_add_pattern_channel_view_height"
+    active: false
+    instructions: ""
+    group: "ukan"
+    tags: ["ukan","forward","pixelshuffle","change"]
+    params:
+      num_classes: 1
+      input_channels: 256
+      embed_dims: [128, 256, 512]
+
+  - name: "SwinUnet"
+    class_name: "SwinUnet"
+    active: false
+    instructions: "model7"
+    group: "swinunet"
+    tags: ["swinunet","forward","bilinear"]
+    params:
+      window_size: 6
+      patch_size: 2
+      in_chans: 256
+      embed_dim: 288
+
+  - name: "SwinUnet_hou"
+    class_name: "SwinUnet_hou"
+    active: false
+    instructions: ""
+    group: "swinunet"
+    tags: ["swinunet","backward","pixelshuffle"]
+    params:
+      window_size: 4
+      patch_size: 2
+      in_chans: 256
+      embed_dim: 288
+
+  - name: "KANU_Net"
+    class_name: "KANU_Net"
+    active: false
+    instructions: "model8"
+    group: "ukan"
+    tags: ["ukan","backward","pixelshuffle"]
+    params:
+      n_channels: 256
+      n_classes: 1
