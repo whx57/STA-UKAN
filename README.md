@@ -17,16 +17,34 @@ STA-UKAN is a deep learning framework for subseasonal temperature forecast refin
 
 ## Experimental Environment
 
-All experiments were conducted under the following environment:
+All experiments were conducted and validated on **two independent hardware platforms** to ensure robustness and reproducibility.
 
+### Environment A: NVIDIA GPU Platform
 | Component | Specification |
-|-----------|---------------|
+|----------|---------------|
+| Server | mxc500 |
 | GPU | NVIDIA RTX 3090 (24 GB) |
+| Driver | NVIDIA Driver 535.183.01 |
 | CUDA | 12.2 |
 | Python | 3.10.14 |
 | Framework | PyTorch |
 
+### Environment B: MX Accelerator Platform (MCC / 沐曦)
+| Component | Specification |
+|----------|---------------|
+| Server | mxc500 |
+| Accelerator Stack | MX-SMI 2.2.8 |
+| Kernel Mode Driver | 3.0.11 |
+| MACA Version | 3.1.0.14 |
+| BIOS Version | 1.27.5.0 |
+| Python | 3.10.19 |
+| Framework | PyTorch |
+
+> The proposed model and all baseline methods were **trained and evaluated on both platforms**.  
+> Although minor numerical differences may arise due to backend implementations, the **relative performance rankings and conclusions remain consistent** across environments.
+
 ---
+
 
 ## Data and Pretrained Checkpoints
 
@@ -105,19 +123,51 @@ Training scripts will be released in a future update.
 
 ## Supported Models
 
-### Proposed Models
-- **STA-UKAN** (CUKan2_1_real): Main proposed model with KAN-enhanced architecture
-- **UKan**: Basic UKAN architecture
-- **CUKan**: Conditional UKAN variants
+To comprehensively evaluate the effectiveness of the proposed STA-UKAN framework, we compare it with a wide range of baseline methods, including **traditional statistical approaches**, **machine learning models**, and **deep learning–based methods**.
 
-### Baseline Models
-- **UNet**: Standard UNet architecture
-- **EDSR**: Enhanced Deep Residual Networks for Super-Resolution
-- **SRCNN**: Super-Resolution CNN
-- **SRDRN**: Super-Resolution Dense Residual Network
-- **SRResNet**: Super-Resolution Residual Network
+### 1. Traditional Statistical Methods
+- **Ensemble Mean**: Simple multi-model ensemble averaging
+- **QM (Quantile Mapping)**: Classical distribution-based bias correction
+- **QDM (Quantile Delta Mapping)**: Trend-preserving quantile-based correction
+
+These methods serve as widely used benchmarks in operational bias correction and downscaling studies.
 
 ---
+
+### 2. Machine Learning–based Methods
+- **RF (Random Forest)**
+- **GBR (Gradient Boosting Regressor)**
+- **SGDRegressor**
+- **AdaBoost**
+- **LightGBM**
+- **SVM (Support Vector Machine)**
+- **XGBoost**
+
+All machine learning models are trained using identical input features and target variables to ensure fair comparison.
+
+---
+
+### 3. Deep Learning–based Methods
+
+#### Proposed Models
+- **STA-UKAN**: Main proposed model with terrain-aware KAN-enhanced UNet architecture  
+- **UKAN**: Base UKAN architecture without conditional or terrain-aware extensions  
+- **CUKAN**: Conditional UKAN variants incorporating auxiliary atmospheric information  
+
+#### Baseline Deep Learning Models
+- **UNet**: Standard encoder–decoder UNet architecture  
+- **CUNet**: Conditional UNet variant  
+- **EDSR**: Enhanced Deep Residual Network  
+- **SwinIR**: Swin Transformer–based Image Restoration Network  
+- **RCAN**: Residual Channel Attention Network  
+- **SRCNN**: Super-Resolution Convolutional Neural Network  
+- **SRResNet**: Super-Resolution Residual Network  
+- **SRDRN**: Super-Resolution Dense Residual Network  
+
+All deep learning models are trained and evaluated under the same data splits, spatial resolution, and evaluation metrics.
+
+---
+
 
 ## Evaluation Metrics
 
