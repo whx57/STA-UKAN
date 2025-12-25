@@ -224,11 +224,13 @@ The KAN-related components are inspired by:
 ## Roadmap
 
 - [x] Release model architectures
-- [x] Release pretrained checkpoints and datasets
-- [ ] Release training scripts
+- [x] Release pretrained checkpoints
+- [x] Release processed datasets
+- [ ] Support generative models (Diffusion, GAN) for comparison
+- [ ] Extend to precipitation downscaling and bias correction tasks
+- [ ] Integrate WRF and additional reanalysis data sources
 - [ ] Add inference demo notebook
 - [ ] Provide Docker image for environment setup
-- [ ] Extend to additional meteorological variables
 
 ---
 
